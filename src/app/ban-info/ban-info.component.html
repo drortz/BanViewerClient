@@ -1,0 +1,57 @@
+
+
+
+<div class="container">
+  <br>
+    <div *ngIf="!isFlowDetailLoading" class="card">
+        <div class="card-header unique-color white-text">
+          Request Details
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-user"></i> BAN ID: {{requestData.banId}}</h5>
+          <p class="card-text"><b><i class="fas fa-database"></i> DB Details:</b> {{requestData.dbUserName}}@{{requestData.dbPassword}}</p>
+          <p *ngIf="requestData.isDirectConnect" class="card-text">{{requestData.host}} : {{requestData.port}} , {{requestData.serviceName}}</p>
+          <p *ngIf="!requestData.isDirectConnect" class="card-text">{{requestData.dbInstance}}</p>
+        </div>
+        <div class="card-footer">
+            <button *ngIf="this.requestData.dbUserName !== 'OMS1OMS'" type="button" class="btn btn-info" (click)="onLogViewerClick()">Log Search Tool</button>
+            <button type="button" class="btn btn-success" (click)="refreshPage(requestData)"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+    </div>
+  <br>
+    <div *ngIf="isFlowDetailLoading">
+    <div class="d-flex justify-content-center"><div class="spinner-border text-primary"></div></div>
+      <h5 class="text-center">
+          Loading Flow Details...
+      </h5>
+    </div>
+    <app-flow-details *ngIf='!routedWithNoData()' [requestData]='this.requestData' (isLoadedEmit)="onFlowDetailsLoaded($event)" ></app-flow-details>
+  <br>
+    <div *ngIf="isToDisplayOALoading">
+        <div class="d-flex justify-content-center"><div class="spinner-border text-primary"></div></div>
+      <h5 class="text-center">
+          Loading Order Actions Details...
+      </h5>
+    </div>
+    <app-order-action (isLoadedEmit)="onOALoaded($event)" *ngIf='!routedWithNoData()' [requestData]='this.requestData'></app-order-action>
+  <br>
+    <div *ngIf="isToDisplayinterfacesLoading">
+        <div class="d-flex justify-content-center"><div class="spinner-border text-primary"></div></div>
+      <h5 class="text-center">
+          Loading Interfaces \ Microservices Logs...
+      </h5>
+    </div>
+    <app-interfaces (isloadedDone)="onInterfacesLeaded($event)" *ngIf='!routedWithNoData()' [requestData]='this.requestData'></app-interfaces>
+  <br>
+
+      <div *ngIf="isToDisplayProductConfigurationLoading">
+          <div class="d-flex justify-content-center"><div class="spinner-border text-primary"></div></div>
+        <h5 class="text-center">
+            Loading Product configuration...
+        </h5>
+      </div>
+      <app-product-configuration (isLoadedEmit)="onProductConfigurationLeaded($event)" [requestData]='this.requestData' *ngIf='!routedWithNoData()'></app-product-configuration>
+  <br>
+</div>
+
+

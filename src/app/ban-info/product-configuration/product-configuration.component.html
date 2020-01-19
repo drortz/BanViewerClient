@@ -1,0 +1,76 @@
+<div class="card" *ngIf="isLoaded">
+    <div class="card-header primary-color white-text text-center">
+      Attribute Comparison
+    </div>
+    <div class="card-body">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a *ngFor="let item of componentAttrVersionsView; let i = index"  [className]="i === 0 ? 'nav-item nav-link active' : 'nav-item nav-link'" id="{{item.apId}}id" data-toggle="tab" href="#content{{item.apId}}" role="tab" aria-controls="nav-home" aria-selected="true">{{item.serviceType}} {{item.apId}}</a>
+            </div>
+        </nav>
+        <!-- style="max-height: 800px; overflow-y: auto;" -->
+        <div class="tab-content" id="nav-tabContent">
+          <div *ngFor="let item of componentAttrVersionsView; let i = index" [className]="i === 0 ? 'tab-pane fade show active' : 'tab-pane fade show'" id="content{{item.apId}}" role="tabpanel" [attr.aria-labelledby]="item.apId + 'id'">
+
+            <!-- first loop -->
+
+              <div class="row mt-2">
+                  <div class="col-3">
+                      <div class="list-group" id="list-tab" role="tablist">
+                      <a *ngFor="let compVersions of item.componentVersionView; let i = index"  [className]="i === 0 ? 'list-group-item list-group-item-action active' : 'list-group-item list-group-item-action'" id="{{compVersions.apId}}id" data-toggle="pill" href="#v-pills{{compVersions.apId}}" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        {{compVersions.serviceType}} {{compVersions.apId}}
+
+                        <!-- badge -->
+                        <span class="badge badge-danger badge-pill">{{countChangedAttr(compVersions)}}</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                      <div class="tab-content" id="nav-tabContent">
+                      <div *ngFor="let compVersions of item.componentVersionView; let i = index" [className]="i === 0 ? 'tab-pane fade show active' : 'tab-pane fade'" id="v-pills{{compVersions.apId}}" role="tabpanel" [attr.aria-labelledby]="compVersions.apId + 'id'">
+
+
+
+
+                          <div class="container-fluid">
+                            <div class="col">
+                              <ul class="list-group list-group-horizontal" style="max-width: inherit; overflow-x: auto;">
+                                <li *ngFor="let singleVer of compVersions.singleVersion" class="list-group-item">
+
+                                    <div class="card">
+                                        <div class="card-header info-color white-text text-center">
+                                            {{singleVer.serviceType}} Version {{singleVer.version}} ({{singleVer.state}})
+                                        </div>
+
+                                        <table class="table table-sm mt-2">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Value</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let attr of singleVer.attributes">
+                                                <th scope="row" [className]="attr.wasChanged ? 'table-danger' : ''">{{attr.name}}</th>
+                                                <td [className]="attr.wasChanged ? 'table-danger' : ''">{{attr.value}}</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+          </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,130 @@
+{
+  "DBConnections": [
+    {
+      "ENV": "OMS2AT03",
+      "username": "OMS2AT03ro",
+      "password": "reset1pw",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.17.231)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8_2_1.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS1BT03",
+      "username": "OMS1BT03ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms6c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d9.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AF10",
+      "username": "OMS0AF10ro",
+      "password": "PwdOct_16",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.188.227.214)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms6d3.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AF11",
+      "username": "OMS0AF11ro",
+      "password": "PwdOct_16",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.188.227.214)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms6d3.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS1AT04",
+      "username": "OMS1AT04ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.17.230)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8_1_2.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS2AT04",
+      "username": "OMS2AT04ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms5c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8_2_1.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS3AT05",
+      "username": "OMS3AT05ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms4c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d7_1_2.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS3BT04",
+      "username": "OMS3BT04ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.213.48.165)(port=1521))(connect_data=(server=dedicated)(service_name=t2oms2d1.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS1AT01",
+      "username": "OMS1AT01ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.17.232)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8.db.att.com)))"
+    },
+    {
+      "ENV": "OMS2AT01",
+      "username": "OMS2AT01ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.17.232)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8.db.att.com)))"
+    },
+    {
+      "ENV": "OMS0BD01",
+      "username": "OMS0BD01ro",
+      "password": "PwdC0nn1",
+      "TNS": "(description=(address=(protocol=tcp)(host=d1oms1c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=d1oms1d7.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT06",
+      "username": "OMS0AT06ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms1c29.kcdc.att.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms6d3.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT02",
+      "username": "OMS0AT02ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.18.127)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d5.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT08",
+      "username": "OMS0AT08ro",
+      "password": "rdonly6u",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms2c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d5.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT50",
+      "username": "OMS0AT50ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms5c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8.db.att.com)))"
+    },
+    {
+      "ENV": "OMS1AT05",
+      "username": "OMS1AT05ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=t1oms4c1.sldc.sbc.com)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d7.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS1BT04",
+      "username": "OMS1BT04ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.18.156)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d9.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS4BT04",
+      "username": "OMS4BT04ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.213.48.165)(port=1521))(connect_data=(server=dedicated)(service_name=t2oms2d1.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT07",
+      "username": "OMS0AT07ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.18.132)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d6.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+    {
+      "ENV": "OMS0AT07",
+      "username": "OMS0AT07ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.41.18.132)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d6.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))"
+    },
+	{
+      "ENV": "OMS0BT02",
+      "username": "OMS0BT02ro",
+      "password": "Pas4readusr",
+      "TNS": "(description=(address=(protocol=tcp)(host=135.213.48.163)(port=1521))(connect_data=(server=dedicated)(service_name=t2oms1d4_1_2.db.att.com)))"
+    }
+  ]
+}

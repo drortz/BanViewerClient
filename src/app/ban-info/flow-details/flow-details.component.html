@@ -1,0 +1,39 @@
+<div class="card" *ngIf="isloaded">
+  <div class="card-header text-center teal lighten-4">
+    Flow Details
+  </div>
+    <mat-horizontal-stepper labelPosition="bottom" [linear]="false">
+        <div *ngFor="let flowDetail of flowDetails; let i = index" >
+          <mat-step [stepControl]="formGroup" label="Order {{flowDetail.orderId}}">
+            <div class="row">
+                <div *ngFor="let product of flowDetail.productFlowView">
+                    <div class="col">
+                        <div class="card mt-3">
+                            <div class="card-header teal lighten-5 text-center">
+                                <b>{{product.orderActionType}}</b>
+                                <br>
+                                {{product.productName}}
+                                <br>
+                                <i [className]="getIconPerProduct(product.productName)" style="font-size: 1.50em;"></i>
+                            </div>
+                            <p class="text-center mt-3 pr-3 pl-3">
+                                Order Action: {{product.orderActionId}}
+                            </p>
+                            <div class="card-footer">
+                                Status: {{product.orderActionStatus}}
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+
+          </mat-step>
+        </div>
+      </mat-horizontal-stepper>
+</div>
+
+
+
+
+
+

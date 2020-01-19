@@ -1,0 +1,362 @@
+<div class="card mb-3" *ngIf="exceptionDisplay.length > 0">
+  <div class="card-header danger-color text-center text-white">
+    Exceptions
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let currentExceptionDisplay of exceptionDisplay" >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{currentExceptionDisplay.assignment.exception}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Click For More Details
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Order Action ID:</b> {{currentExceptionDisplay.orderAction.orderActionId}}</li>
+        <li class="list-group-item"><b>Exception On Activity:</b> {{currentExceptionDisplay.assignment.disaplyName}}</li>
+        <li class="list-group-item"><b>Activity Step ID:</b> {{currentExceptionDisplay.assignment.stepInstanceId}}</li>
+        <li class="list-group-item"><b>Time Stamp:</b> {{currentExceptionDisplay.assignment.time}}</li>
+      </ul>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
+
+<table mat-table #orderActionTable *ngIf='isToLoad()'
+[dataSource]="dataSource" multiTemplateDataRows
+class="mat-elevation-z8">
+<ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+<th class="tableColBackgound" mat-header-cell *matHeaderCellDef> {{column.value}} </th>
+<td [ngStyle]="getOrderActionColor(element)" mat-cell *matCellDef="let element"> {{element[column.id]}} </td>
+</ng-container>
+
+<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+<ng-container matColumnDef="expandedDetail">
+<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+<div class="example-element-detail"
+    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+ <div>
+
+   <div class="container">
+     <div class="row">
+         <div class="col pt-2 pb-2">
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <h6><i class="fas fa-cubes"></i><b> Updated Components</b></h6>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container" style="overflow-y: auto; max-height: 300px;">
+                    <table id="orderActionTable" class="table table-striped table-bordered table-sm overflow-auto tableFixHead">
+                        <thead class="info-color-dark white-text">
+                          <tr>
+                            <th *ngFor="let head of headElementsChangedAps" scope="col">{{head}} </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let el of element.componentsChangedInOrderAction">
+                            <td scope="row">{{el.apId}}</td>
+                            <td>{{el.version}}</td>
+                            <td>{{el.serviceType}}</td>
+                            <td>{{el.status}}</td>
+                            <td>{{el.state}}</td>
+                            <td><button type="button" class="btn btn-info btn-sm" (click)="showModal(el.serviceType, el.version, el.attributes)">Attributes</button></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="element?.pricePlanesChangedInOrderAction">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <h6><i class="fas fa-hand-holding-usd"></i><b> Updated Price Planes</b></h6>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container" style="overflow-y: auto; max-height: 300px;">
+                    <table id="PricePlaneUpdateTable" class="table table-bordered table-striped table-sm overflow-auto tableFixHead">
+                        <thead class="info-color-dark white-text">
+                          <tr>
+                            <th *ngFor="let head of headElementsChangedPPs" scope="col">{{head}} </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let el of element.pricePlanesChangedInOrderAction">
+                            <td scope="row">{{el.billingId}}</td>
+                            <td>{{el.itemDefId}}</td>
+                            <td>{{el.version}}</td>
+                            <td>{{el.type}}</td>
+                            <td>{{el.description}}</td>
+                            <td>{{el.actualPrice}}</td>
+                            <td>{{el.state}}</td>
+                            <td>{{el.status}}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel *ngIf="element?.assignments && element?.assignments.length > 0">
+                    <mat-expansion-panel-header [ngStyle]="changeAssignmentsBackground(element.assignments)">
+                      <mat-panel-title >
+                        <h6><i class="fas fa-cog"></i> <b> Executed Activities</b></h6>
+
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="container mt-2" style="overflow-y: auto; max-height: 300px;">
+                      <table id="AssignmentsTable" class="table table-striped table-sm table-bordered overflow-auto tableFixHead">
+                        <thead class="info-color-dark white-text">
+                          <tr>
+                              <th scope="col">Step Instance Id</th>
+                              <th scope="col">Time</th>
+                              <th scope="col">Activity Name</th>
+                              <th scope="col">State</th>
+                              <th scope="col">Exception</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let ass of element.assignments">
+                            <td scope="row" [className]="ass.exception ? 'table-danger' : ''">{{ass.stepInstanceId}}</td>
+                            <td [className]="ass.exception ? 'table-danger' : ''">{{ass.time}}</td>
+                            <td [className]="ass.exception ? 'table-danger' : ''">{{ass.disaplyName}}</td>
+                            <td [className]="ass.exception ? 'table-danger' : ''">{{ass.state}}</td>
+                            <td [className]="ass.exception ? 'table-danger' : ''">{{ass.exception}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </mat-expansion-panel>
+
+                <mat-expansion-panel *ngIf="element?.crmLic">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h6><i class="fas fa-share-square"></i><b> CRM LIC</b></h6>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <button *ngIf="element?.crmLic" type="button" class="btn btn-outline-info" (click)="showXmlModal(element.orderActionId, element.crmLic, 'CRM LIC')">Open CRM LIC</button>
+
+                </mat-expansion-panel>
+
+                <mat-expansion-panel *ngIf="element?.upcReq">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                          <h6><i class="fas fa-share-square"></i><b> UPC REQ</b></h6>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                      <button *ngIf="element?.upcReq" type="button" class="btn btn-outline-info" (click)="showXmlModal(element.orderActionId, element.upcReq, 'UPC REQ')">Open UPC Request</button>
+
+                  </mat-expansion-panel>
+
+                  <mat-expansion-panel *ngIf="element?.icsReq">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h6><i class="fas fa-share-square"></i><b> ICS REQ</b></h6>
+
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                        <button *ngIf="element?.icsReq" type="button" class="btn btn-outline-info" (click)="showXmlModal(element.orderActionId, element.icsReq, 'ICS REQ')">Open ICS Request</button>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel *ngIf="element?.addressLocalViewList?.length > 0">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h6><i class="fas fa-map-marked-alt"></i><b> Address</b></h6>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+
+                      <table class="table table-sm table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">AP Item</th>
+                            <th scope="col">AP Version</th>
+                            <th scope="col">Street Name</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Zip Code</th>
+                            <th scope="col">Site ID</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let addr of element?.addressLocalViewList" >
+                            <td>{{addr.id}}</td>
+                            <td>{{addr.type}}</td>
+                            <td>{{addr.apItemId}}</td>
+                            <td>{{addr.version}}</td>
+                            <td>{{addr.streetName}}</td>
+                            <td>{{addr.city}}</td>
+                            <td>{{addr.state}}</td>
+                            <td>{{addr.zipCode}}</td>
+                            <td>{{addr.siteId}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel *ngIf="element?.acceptedSalesOfferInOrderAction?.length > 0">
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                              <h6><i class="fas fa-check-double"></i><b> Accepted Sales Offers</b></h6>
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <a style="cursor: default;" class="list-group-item list-group-item-action list-group-item-info" *ngFor="let id of element?.acceptedSalesOfferInOrderAction">{{id}}</a>
+
+                      </mat-expansion-panel>
+
+                      <mat-expansion-panel *ngIf="element?.dynamicAttributes">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h6><i class="fas fa-list-ul"></i><b> Dynamic Attributes</b></h6>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                            <div class="col-6">
+                              <table class="table table-sm table-bordered table-striped">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Value</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let attribute of element?.dynamicAttributes" >
+                                      <td>{{attribute.name}}</td>
+                                      <td>{{attribute.value}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel *ngIf="element?.userSkills">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <h6><i class="fas fa-user-cog"></i><b> User Skills</b></h6>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                          <div class="container" style="overflow-y: auto; max-height: 250px;">
+                            <div class="row">
+                              <div class="col">
+                                <ul class="list-group">
+                                  <li *ngFor="let skill of element?.userSkills.skills"  class="list-group-item list-group-item-info">{{skill}}</li>
+                                </ul>
+                              </div>
+                              <div class="col">
+                                <p>Security Profile</p>
+                                <ul class="list-group">
+                                  <li *ngFor="let profile of element?.userSkills.securityProfiles"  class="list-group-item list-group-item-info">{{profile}}</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-expansion-panel>
+
+              </mat-accordion>
+
+
+
+
+
+           </div>
+     </div>
+   </div>
+
+
+
+
+
+   </div>
+ </div>
+</td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+<tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+class="example-element-row"
+[class.example-expanded-row]="expandedElement === element"
+(click)="expandedElement = expandedElement === element ? null : element">
+</tr>
+<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+
+
+
+<!-- Attributes modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal" role="document">
+<div class="modal-content">
+ <div class="modal-header">
+   <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-dice-d6"></i> {{this.modalTitle}}</h5>
+   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     <span aria-hidden="true">&times;</span>
+   </button>
+ </div>
+ <div class="modal-body">
+   <div class="row">
+      <div class="col-1">
+          <i class="fas fa-search"></i>
+      </div>
+      <div class="col-11">
+          <input class="form-control mb-2" id="myInput" type="text" placeholder="Search By Attribute Name" [(ngModel)]="searchText">
+      </div>
+   </div>
+
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let attribute of (modalAttributes | searchByAttributeName: searchText)" >
+              <td>{{attribute.name}}</td>
+              <td>{{attribute.value}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+ </div>
+ <div class="modal-footer">
+   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+ </div>
+</div>
+</div>
+</div>
+
+<!-- XML modal -->
+<div class="modal fade" id="xmlModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal modal-xl" role="document">
+  <div class="modal-content">
+   <div class="modal-header">
+     <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-retweet"></i> {{this.xmlModalTitle}}</h5>
+     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   <div class="modal-body">
+      <pre>
+          {{this.xmlModalContent}}
+      </pre>
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+  </div>
+  </div>
+
+<app-loader-spinner></app-loader-spinner>

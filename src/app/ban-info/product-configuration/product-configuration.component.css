@@ -1,0 +1,9 @@
+.overflow-top{
+  transform:rotateX(180deg);
+  -ms-transform:rotateX(180deg); /* IE 9 */
+  -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+}
+
+
+.top-scroll-wrapper { width: 90%;height: 20px;margin: auto;padding: 0 16px;overflow-x: auto;overflow-y: hidden;}
+.top-scroll { height: 20px; }

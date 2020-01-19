@@ -1,0 +1,18 @@
+{
+  "DBConnections": [
+    {
+      "ENV": "VAPP_133",
+      "username": "OMS1OMS",
+      "password": "OMS1OMS",
+      "host": "illnqw6693",
+	  "serviceName": "ATTCDB6426"
+    },
+    {
+      "ENV": "VAPP_45",
+      "username": "OMS1OMS",
+      "password": "OMS1OMS",
+      "host": "illnqw7634",
+	  "serviceName": "ATTCDB7575"
+    }
+  ]
+}

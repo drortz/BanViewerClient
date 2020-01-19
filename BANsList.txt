@@ -1,0 +1,72 @@
+BAN 255402821
+BAN 627040421 (Sales Offers)
+(Converted ban + ICS + MS + CRM) flows
+
+OMS1AT04ro
+Pas4readusr
+(description=(address=(protocol=tcp)(host=135.41.17.230)(port=1521))(connect_data=(server=dedicated)(service_name=t1oms4d8_1_2.db.att.com)(failover_mode=(type=select)(method=basic)(retries=180)(delay=5))))
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+DB: OMS1OMS/OMS1OMS@illnqw6707 | ATTCDB6422
+BAN: 705006411 
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+UAT ENVs - http://usstldrortz01:4200/banviewer/details
+ICM ENVs - http://drortz01vp:4200/banviewer/details
+
+
+* TODO: 
+addresses 
+due date per OA
+USER skills per OA - Done !
+BPM
+Icons on accordion OA - Done !
+
+
+=======================================
+BAN with Exception on NC
+994040650
+ENV 150
+
+
+
+
+OMS1AT04
+
+629022844 
+
+629022332 
+
+
+
+=======================================
+
+
+
+OA types - 705006198
+
+
+PR - Green
+AM - Green
+RS - Green
+SR - Green
+ND - Blue
+CH - Blue
+CE - Red
+CM - Red
+SU - Red
+SS - Red
+PV - Green
+
+
+MV
+CW
+CC
+
