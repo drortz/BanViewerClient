@@ -1,4 +1,4 @@
-<div class="card mb-3" *ngIf="exceptionDisplay.length > 0">
+<div class="card mb-3 animated fadeIn" *ngIf="exceptionDisplay.length > 0">
   <div class="card-header danger-color text-center text-white">
     Exceptions
   </div>
@@ -28,7 +28,7 @@
 
 <table mat-table #orderActionTable *ngIf='isToLoad()'
 [dataSource]="dataSource" multiTemplateDataRows
-class="mat-elevation-z8">
+class="mat-elevation-z8 animated fadeIn">
 <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
 <th class="tableColBackgound" mat-header-cell *matHeaderCellDef> {{column.value}} </th>
 <td [ngStyle]="getOrderActionColor(element)" mat-cell *matCellDef="let element"> {{element[column.id]}} </td>
