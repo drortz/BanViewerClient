@@ -1,283 +1,323 @@
 
-<div class="container">
+<div class="container-fluid">
 
   <form class="was-validated">
 
-    <div class="card">
-      <h5 class="card-header default-color white-text text-center py-4">
-          <h5 class="card-title"><i class="fas fa-database"></i> DB connection details</h5>
-      </h5>
-      <div class="card-body">
+    <div class="row">
+      <div class="col-8">
 
-      <div class="card">
-        <div class="card-header teal darken-2 text-center white-text">
-          Saved Environments
-        </div>
+          <div class="card" style="margin-left: 5rem;">
+            <div class="card-header teal darken-2 text-center white-text">
+              Saved Environments List
+            </div>
 
-        <div class="row">
-          <div class="col">
-              <form class="example-form ml-3">
-                  <mat-form-field class="example-full-width">
-                    <input type="text" placeholder="Select \ Type UAT Environments" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDBConnectionsSelect($event)">
-                      <mat-option *ngFor="let conn of filteredOptions | async" [value]="conn">
-                        {{conn}}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-              </form>
-          </div>
-          <div class="col">
+            <div class="row">
+              <div class="col">
+                  <form class="example-form ml-3">
+                      <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Select \ Type UAT Environments" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onDBConnectionsSelect($event)">
+                          <mat-option *ngFor="let conn of filteredOptions | async" [value]="conn">
+                            {{conn}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                  </form>
+              </div>
+              <div class="col">
 
-              <form class="example-form">
-                  <mat-form-field class="example-full-width">
-                    <input type="text" placeholder="Private Environments" aria-label="Number" matInput [formControl]="myControlICM" [matAutocomplete]="autoICM">
-                    <mat-autocomplete #autoICM="matAutocomplete" (optionSelected)="onDBConnectionsSelectICM($event)">
-                      <mat-option *ngFor="let conn2 of filteredOptionsICM | async" [value]="conn2">
-                        {{conn2}}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-              </form>
+                  <form class="example-form">
+                      <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Private Environments" aria-label="Number" matInput [formControl]="myControlICM" [matAutocomplete]="autoICM">
+                        <mat-autocomplete #autoICM="matAutocomplete" (optionSelected)="onDBConnectionsSelectICM($event)">
+                          <mat-option *ngFor="let conn2 of filteredOptionsICM | async" [value]="conn2">
+                            {{conn2}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
+                  </form>
 
-          </div>
-        </div>
-        <div class="card-footer">
-            <mat-accordion>
-                <mat-expansion-panel style="background: #e0f2f1;">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <h6><i class="fas fa-plus"></i> Add private Environments</h6>
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div class="row">
-                      <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Environment Name For Display</span>
-                        </div>
-                        <input [(ngModel)]="this.privateEnvName" [ngModelOptions]="{standalone: true}" type="text"
-                          class="form-control is-invalid" placeholder="Type Environment Identifier" aria-describedby="passHelpBlock"
-                          required>
-                      </div>
-                    </div>
-
-                  <div class="row">
-                      <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">DB user name</span>
-                        </div>
-                        <input [(ngModel)]="this.privateEnvUserName" [ngModelOptions]="{standalone: true}" type="text"
-                          class="form-control is-invalid" placeholder="Type DB user name here" aria-describedby="userNameHelpBlock"
-                          required>
-
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">DB password</span>
-                        </div>
-                        <input [(ngModel)]="this.privateEnvPassword" [ngModelOptions]="{standalone: true}" type="text"
-                          class="form-control is-invalid" placeholder="Type DB password here" aria-describedby="passHelpBlock"
-                          required>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">TNS</span>
-                        </div>
-                        <input [(disabled)]="isDirectConnectPrivate" [(ngModel)]="this.privateEnvTNS" [ngModelOptions]="{standalone: true}" type="text"
-                          class="form-control is-invalid" placeholder="Type TNS here" aria-describedby="instanceHelpBlock"
-                          required>
-                      </div>
-                    </div>
-
-                    <mat-slide-toggle ngDefaultControl (change)="onToggleChangePrivate($event)" class="mt-3" color="primary" [checked]="isDirectConnectPrivate">
-                      Direct Connect
-                    </mat-slide-toggle>
-
-                    <div class="card pb-3 pl-4 mt-2">
-                        <div class="row mt-3">
-                            <div class="col-4">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">Host</span>
-                                    </div>
-                                    <input [(ngModel)]="this.privateEnvHost" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
-                                      class="form-control is-invalid" placeholder="Host Name" aria-describedby="instanceHelpBlock"
-                                      required>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">Port</span>
-                                    </div>
-                                    <input [(ngModel)]="this.privateEnvPort" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
-                                      class="form-control is-invalid" placeholder="Port Name" aria-describedby="instanceHelpBlock"
-                                      required>
-                                </div>
-                            </div>
-                            <div clsss="col-5">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text" id="basic-addon1">Service Name</span>
-                                    </div>
-                                    <input [(ngModel)]="this.privateEnvServiceName" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
-                                      class="form-control is-invalid" placeholder="Service Name" aria-describedby="instanceHelpBlock"
-                                      required>
-                                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+                <mat-accordion>
+                    <mat-expansion-panel style="background: #e0f2f1;">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <h6><i class="fas fa-plus"></i> Add private Environments</h6>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="row">
+                          <div class="col-7">
+                            <div class="input-group mt-2">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Environment Name For Display</span>
+                              </div>
+                              <input [(ngModel)]="this.privateEnvName" [ngModelOptions]="{standalone: true}" type="text"
+                                class="form-control is-invalid" placeholder="Type Environment Name" aria-describedby="passHelpBlock"
+                                required>
                             </div>
                           </div>
-                    </div>
-                    <div class="row mt-2 justify-content-center">
-                        <button (click)="onCheckConnectionPrivate()" [disabled]="this.isToDisableCheckConnectionPrivate()" type="button" class="btn btn-default" ><i class="fas fa-plug"></i> Test Connection</button>
-                        <button type="button" [disabled]="this.isToDisableCheckConnectionPrivate()" class="btn btn-success" (click)="onSavePrivateENV()"><i class="fas fa-save"></i> Save Private Environment</button>
-                    </div>
+                        </div>
 
-                </mat-expansion-panel>
+                      <div class="row">
+                        <div class="col-7">
+                            <div class="input-group mt-2">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">DB user name</span>
+                              </div>
+                              <input [(ngModel)]="this.privateEnvUserName" [ngModelOptions]="{standalone: true}" type="text"
+                                class="form-control is-invalid" placeholder="Type DB user name here" aria-describedby="userNameHelpBlock"
+                                required>
 
-                <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false" style="background: #fbe9e7;">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <h6><i class="fas fa-trash-alt"></i> Delete Private Environment</h6>
-                    </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div class="row">
-                    <div class="col">
-                        <mat-form-field>
-                            <mat-label>Select Environment</mat-label>
-                            <mat-select [disabled]="connectionsToDisplayICM.length === 0" [(value)]="selectedPrivateEnvForDelete">
-                              <mat-option *ngFor="let con of connectionsToDisplayICM" [value]="con">
-                                {{con}}
-                              </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <button type="button" [disabled]="connectionsToDisplayICM.length === 0 || selectedPrivateEnvForDelete === undefined" class="btn btn-danger btn-sm" (click)="onDeleteSelectedPrivateENV()">Delete Selected Environments</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" [disabled]="connectionsToDisplayICM.length === 0" class="btn btn-danger btn-sm" (click)="onDeleteAllPrivateENVs()">Delete All Private Environments</button>
-                    </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-7">
+                            <div class="input-group mt-2">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">DB password</span>
+                              </div>
+                              <input [(ngModel)]="this.privateEnvPassword" [ngModelOptions]="{standalone: true}" type="text"
+                                class="form-control is-invalid" placeholder="Type DB password here" aria-describedby="passHelpBlock"
+                                required>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-10">
+                            <div class="input-group mt-2">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">TNS</span>
+                              </div>
+                              <input [(disabled)]="isDirectConnectPrivate" [(ngModel)]="this.privateEnvTNS" [ngModelOptions]="{standalone: true}" type="text"
+                                class="form-control is-invalid" placeholder="Type TNS here" aria-describedby="instanceHelpBlock"
+                                required>
+                            </div>
+                          </div>
+                        </div>
+
+                        <mat-slide-toggle ngDefaultControl (change)="onToggleChangePrivate($event)" class="mt-3" color="primary" [checked]="isDirectConnectPrivate">
+                          Direct Connect
+                        </mat-slide-toggle>
+
+                        <div class="card pb-3 pl-4 mt-2">
+                            <div class="row mt-3">
+                                <div class="col-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon1">Host</span>
+                                        </div>
+                                        <input [(ngModel)]="this.privateEnvHost" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
+                                          class="form-control is-invalid" placeholder="Host Name" aria-describedby="instanceHelpBlock"
+                                          required>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon1">Port</span>
+                                        </div>
+                                        <input [(ngModel)]="this.privateEnvPort" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
+                                          class="form-control is-invalid" placeholder="Port Name" aria-describedby="instanceHelpBlock"
+                                          required>
+                                    </div>
+                                </div>
+                                <div clsss="col-5">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon1">Service Name</span>
+                                        </div>
+                                        <input [(ngModel)]="this.privateEnvServiceName" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnectPrivate" type="text"
+                                          class="form-control is-invalid" placeholder="Service Name" aria-describedby="instanceHelpBlock"
+                                          required>
+                                    </div>
+                                </div>
+                              </div>
+                        </div>
+                        <div class="row mt-2 justify-content-center">
+                            <button (click)="onCheckConnectionPrivate()" [disabled]="this.isToDisableCheckConnectionPrivate()" type="button" class="btn btn-default" ><i class="fas fa-plug"></i> Test Connection</button>
+                            <button type="button" [disabled]="this.isToDisableCheckConnectionPrivate()" class="btn btn-success" (click)="onSavePrivateENV()"><i class="fas fa-save"></i> Save Private Environment</button>
+                        </div>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" style="background: #fbe9e7;">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <h6><i class="fas fa-trash-alt"></i> Delete Private Environment</h6>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="row">
+                        <div class="col">
+                            <mat-form-field>
+                                <mat-label>Select Environment</mat-label>
+                                <mat-select [disabled]="connectionsToDisplayICM.length === 0" [(value)]="selectedPrivateEnvForDelete">
+                                  <mat-option *ngFor="let con of connectionsToDisplayICM" [value]="con">
+                                    {{con}}
+                                  </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button type="button" [disabled]="connectionsToDisplayICM.length === 0 || selectedPrivateEnvForDelete === undefined" class="btn btn-danger btn-sm" (click)="onDeleteSelectedPrivateENV()">Delete Selected Environments</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" [disabled]="connectionsToDisplayICM.length === 0" class="btn btn-danger btn-sm" (click)="onDeleteAllPrivateENVs()">Delete All Private Environments</button>
+                        </div>
+                      </div>
+
+
+
+                    </mat-expansion-panel>
+                  </mat-accordion>
+            </div>
+          </div>
+
+          <div class="card mt-4" style="margin-left: 5rem;">
+          <h5 class="card-header default-color white-text text-center py-4">
+              <h5 class="card-title"><i class="fas fa-database"></i> DB connection details</h5>
+          </h5>
+          <div class="card-body">
+
+
+
+            <div class="row">
+              <div class="col-7">
+                <div class="input-group mt-6">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">DB user name</span>
                   </div>
-
-
-
-                </mat-expansion-panel>
-              </mat-accordion>
-        </div>
-      </div>
-
-        <div class="row mt-3">
-          <div class="input-group mt-6">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">DB user name</span>
-            </div>
-            <input [(ngModel)]="this.dbUserName" [ngModelOptions]="{standalone: true}" type="text"
-              class="form-control is-invalid" placeholder="Type DB user name here" aria-describedby="userNameHelpBlock"
-              required>
-
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-group mt-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">DB password</span>
-            </div>
-            <input [(ngModel)]="this.dbPass" [ngModelOptions]="{standalone: true}" type="text"
-              class="form-control is-invalid" placeholder="Type DB password here" aria-describedby="passHelpBlock"
-              required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-group mt-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">TNS</span>
-            </div>
-            <input [(disabled)]="isDirectConnect" [(ngModel)]="this.dbInstance" [ngModelOptions]="{standalone: true}" type="text"
-              class="form-control is-invalid" placeholder="Type TNS here" aria-describedby="instanceHelpBlock"
-              required>
-          </div>
-        </div>
-
-        <mat-slide-toggle ngDefaultControl (change)="onToggleChange($event)" class="mt-3" color="primary" [checked]="isDirectConnect">
-          Direct Connect
-        </mat-slide-toggle>
-
-        <div class="card pb-3 pl-4 mt-3">
-            <div class="row mt-3">
-                <div class="col-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Host</span>
-                        </div>
-                        <input [(ngModel)]="this.host" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
-                          class="form-control is-invalid" placeholder="Host Name" aria-describedby="instanceHelpBlock"
-                          required>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Port</span>
-                        </div>
-                        <input [(ngModel)]="this.port" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
-                          class="form-control is-invalid" placeholder="Port Name" aria-describedby="instanceHelpBlock"
-                          required>
-                    </div>
-                </div>
-                <div clsss="col-5">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Service Name</span>
-                        </div>
-                        <input [(ngModel)]="this.serviceName" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
-                          class="form-control is-invalid" placeholder="Service Name" aria-describedby="instanceHelpBlock"
-                          required>
-                    </div>
+                  <input [(ngModel)]="this.dbUserName" [ngModelOptions]="{standalone: true}" type="text"
+                    class="form-control is-invalid" placeholder="Type DB user name here" aria-describedby="userNameHelpBlock"
+                    required>
                 </div>
               </div>
+            </div>
+
+            <div class="row">
+              <div class="col-7">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">DB password</span>
+                  </div>
+                  <input [(ngModel)]="this.dbPass" [ngModelOptions]="{standalone: true}" type="text"
+                    class="form-control is-invalid" placeholder="Type DB password here" aria-describedby="passHelpBlock"
+                    required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-10">
+                <div class="input-group mt-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">TNS</span>
+                  </div>
+                  <input [(disabled)]="isDirectConnect" [(ngModel)]="this.dbInstance" [ngModelOptions]="{standalone: true}" type="text"
+                    class="form-control is-invalid" placeholder="Type TNS here" aria-describedby="instanceHelpBlock"
+                    required>
+                </div>
+              </div>
+            </div>
+
+            <mat-slide-toggle ngDefaultControl (change)="onToggleChange($event)" class="mt-3" color="primary" [checked]="isDirectConnect">
+              Direct Connect
+            </mat-slide-toggle>
+
+            <div class="card pb-3 pl-4 mt-3">
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">Host</span>
+                            </div>
+                            <input [(ngModel)]="this.host" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
+                              class="form-control is-invalid" placeholder="Host Name" aria-describedby="instanceHelpBlock"
+                              required>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">Port</span>
+                            </div>
+                            <input [(ngModel)]="this.port" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
+                              class="form-control is-invalid" placeholder="Port Name" aria-describedby="instanceHelpBlock"
+                              required>
+                        </div>
+                    </div>
+                    <div clsss="col-5">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">Service Name</span>
+                            </div>
+                            <input [(ngModel)]="this.serviceName" [ngModelOptions]="{standalone: true}" [(disabled)]="!isDirectConnect" type="text"
+                              class="form-control is-invalid" placeholder="Service Name" aria-describedby="instanceHelpBlock"
+                              required>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <div class="card-footer">
+              <div class="row justify-content-center">
+                  <!-- check -->
+                  <button (click)="onCheckConnection(false)" [disabled]="this.isToDisableCheckConnection()" type="button" class="btn btn-default" ><i class="fas fa-plug"></i> Test Connection</button>
+                </div>
+          </div>
         </div>
       </div>
-      <div class="card-footer">
-          <div class="row justify-content-center">
-              <!-- check -->
-              <button (click)="onCheckConnection(false)" [disabled]="this.isToDisableCheckConnection()" type="button" class="btn btn-default" ><i class="fas fa-plug"></i> Test Connection</button>
-            </div>
-      </div>
-    </div>
 
-
-
-
-
-    <div class="card mt-3">
-      <h5 class="card-header primary-color white-text text-center py-4">
-          <h5 class="card-title"><i class="fas fa-user"></i> Customer</h5>
-      </h5>
-      <div class="card-body">
+      <div class="col-4">
         <div class="row">
-          <div class="input-group  bt-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">BAN #</span>
+          <div class="col">
+            <div class="card" style="margin-right: 5rem;">
+              <h5 class="card-header primary-color white-text text-center py-4">
+                  <h5 class="card-title"><i class="fas fa-user"></i> Customer ID</h5>
+              </h5>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-10">
+                    <div class="input-group  bt-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">BAN #</span>
+                      </div>
+                      <input [(ngModel)]="this.banId" [ngModelOptions]="{standalone: true}" type="number" min="1"
+                        class="form-control is-invalid" placeholder="Type Ban Id here" aria-describedby="banHelpBlock" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <input [(ngModel)]="this.banId" [ngModelOptions]="{standalone: true}" type="number" min="1"
-              class="form-control is-invalid" placeholder="Type Ban Id here" aria-describedby="banHelpBlock" required>
+          </div>
+          </div>
+
+        <div class="row">
+          <div class="col text-center mt-5">
+            <button style="border-radius: 50%; padding: 12%; font-size: 120%;
+                          background-image: url(../../../assets/images/finding.png); background-size: 70%; background-repeat: no-repeat; background-position-x: 40%; background-position-y: 40%;"
+            (click)="onSubmit()" [disabled]="this.isToDisableSubmit()" type="button" [className]="this.isToDisableSubmit() ? 'btn btn-primary btn-lg' : 'btn btn-primary btn-lg animated tada infinite'"></button>
           </div>
         </div>
-      </div>
-      <div class="card-footer">
-          <div class="row justify-content-center">
-              <button (click)="onSubmit()" [disabled]="this.isToDisableSubmit()" type="button" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
-          </div>
+
       </div>
 
+
     </div>
+
+
+
+
+
+
+
+
+
+
+
 
     <br>
 
